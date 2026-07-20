@@ -47,13 +47,12 @@ export const legacyMarkupHtml = `
         <div id="otpStep" class="hidden">
           <div class="brand"><img class="brand-logo" src="/logo-placeholder.svg" alt="Northgate Bank"></div>
           <h1>Verify it's you</h1>
-          <p class="sub">Enter the 6-digit verification code to finish signing in.</p>
+          <p class="sub">Enter the 6-digit verification code sent to your email.</p>
           <div class="login-error" id="otpError"></div>
           <div class="field"><label>Verification code</label><input type="text" id="otpCode" placeholder="6-digit code" inputmode="numeric" maxlength="6" autocomplete="one-time-code"></div>
           <button class="btn btn-primary btn-block" onclick="handleVerifyOtp()">Verify &amp; sign in</button>
           <button class="btn btn-ghost btn-block" style="margin-top:10px;" onclick="backToLoginStep()">Back to sign in</button>
-          <div class="demo-note" id="otpDemoNote">Demo mode: use verification code <b>123456</b>.</div>
-        </div>
+          </div>
       </div>
     </div>
   </section>

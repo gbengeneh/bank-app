@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" role="img" aria-labelledby="title desc">
+  <title id="title">Northgate Bank placeholder logo</title>
+  <desc id="desc">A navy and teal bank building icon beside the Northgate Bank name.</desc>
+  <rect x="2" y="2" width="60" height="60" rx="13" fill="#315f00"/>
+  <path d="M12 27 32 14l20 13v5H12z" fill="#78a900"/>
+  <path d="M17 34h6v14h-6zm12 0h6v14h-6zm12 0h6v14h-6zM12 51h40v5H12z" fill="#fff"/>
+  <circle cx="32" cy="25" r="4" fill="#fff"/>
+  <text x="75" y="31" fill="#315f00" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" letter-spacing=".3">NORTHGATE</text>
+  <text x="76" y="50" fill="#78a900" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="5">BANK</text>
+</svg>
