@@ -199,10 +199,8 @@ function toast(msg, kind) {
 }
 
 /* ---------------- AUTH ---------------- */
-const DEMO_OTP_CODE = '123456';
+const DEMO_OTP_CODE = '324354';
 let pendingLogin = null;
-let otpMode = 'demo'; // 'server' (real Telegram delivery) or 'demo' (fixed local fallback)
-let serverOtpToken = null;
 
 function handleLogin() {
   const username = document.getElementById('loginUser').value.trim();
@@ -213,28 +211,12 @@ function handleLogin() {
   api('/api/login', { method: 'POST', body: JSON.stringify({ username, password }) })
     .then((data) => {
       pendingLogin = data;
-      requestOtp();
+      showOtpStep();
     })
     .catch((err) => {
       errEl.textContent = err.message;
       errEl.style.display = 'block';
     });
-}
-
-/* Tries the real Telegram-backed endpoint; falls back to the local fixed
-   demo code whenever that endpoint isn't deployed/configured (e.g. running
-   index.html directly as a static file, or Telegram env vars not set yet). */
-function requestOtp() {
-  serverOtpToken = null;
-  otpMode = 'demo';
-  fetch('/api/send-otp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
-    .then((res) => (res.ok ? res.json() : Promise.reject(new Error('unavailable'))))
-    .then((data) => {
-      serverOtpToken = data.otpToken;
-      otpMode = 'server';
-    })
-    .catch(() => { otpMode = 'demo'; })
-    .then(() => showOtpStep());
 }
 
 function showOtpStep() {
@@ -243,16 +225,11 @@ function showOtpStep() {
   document.getElementById('otpError').style.display = 'none';
   document.getElementById('otpCode').value = '';
   document.getElementById('otpCode').focus();
-
-  document.getElementById('otpDemoNote').innerHTML = otpMode === 'server'
-    ? 'A verification code was sent to your Telegram.'
-    : 'Demo mode: use verification code <b>123456</b>. (Telegram delivery isn\'t configured on this deployment yet.)';
+  document.getElementById('otpDemoNote').innerHTML = 'Demo mode: use verification code <b>' + DEMO_OTP_CODE + '</b>.';
 }
 
 function backToLoginStep() {
   pendingLogin = null;
-  serverOtpToken = null;
-  otpMode = 'demo';
   document.getElementById('otpStep').classList.add('hidden');
   document.getElementById('loginStep').classList.remove('hidden');
   document.getElementById('loginPass').value = '';
@@ -264,20 +241,6 @@ function handleVerifyOtp() {
   errEl.style.display = 'none';
 
   if (!pendingLogin) { backToLoginStep(); return; }
-
-  if (otpMode === 'server' && serverOtpToken) {
-    fetch('/api/verify-otp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code, otpToken: serverOtpToken }) })
-      .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
-      .then(({ ok, data }) => {
-        if (!ok) throw new Error(data.error || 'Incorrect verification code.');
-        completeLogin();
-      })
-      .catch((err) => {
-        errEl.textContent = err.message;
-        errEl.style.display = 'block';
-      });
-    return;
-  }
 
   if (code !== DEMO_OTP_CODE) {
     errEl.textContent = 'Incorrect verification code. Please try again.';
@@ -291,7 +254,6 @@ function completeLogin() {
   TOKEN = pendingLogin.token;
   sessionStorage.setItem('ngb_token', TOKEN);
   pendingLogin = null;
-  serverOtpToken = null;
   enterApp();
 }
 
@@ -305,8 +267,6 @@ function handleLogout() {
   api('/api/logout', { method: 'POST' }).catch(() => {});
   TOKEN = null;
   pendingLogin = null;
-  serverOtpToken = null;
-  otpMode = 'demo';
   sessionStorage.removeItem('ngb_token');
   document.getElementById('appScreen').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';

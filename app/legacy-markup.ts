@@ -4,7 +4,7 @@ export const legacyMarkupHtml = `
 
   <header class="landing-header">
     <div class="landing-header-inner">
-      <div class="brand"><img class="brand-logo" src="logo-placeholder.svg" alt="Northgate Bank"></div>
+      <div class="brand"><img class="brand-logo" src="/logo-placeholder.svg" alt="Northgate Bank"></div>
       <nav class="landing-nav">
         <a href="#">Personal Banking</a>
         <a href="#">Small Business</a>
@@ -31,7 +31,7 @@ export const legacyMarkupHtml = `
 
       <div class="login-card">
         <div id="loginStep">
-          <div class="brand"><img class="brand-logo" src="logo-placeholder.svg" alt="Northgate Bank"></div>
+          <div class="brand"><img class="brand-logo" src="/logo-placeholder.svg" alt="Northgate Bank"></div>
           <h1>Sign in</h1>
           <p class="sub">Access your accounts securely.</p>
           <div class="login-error" id="loginError"></div>
@@ -45,7 +45,7 @@ export const legacyMarkupHtml = `
         </div>
 
         <div id="otpStep" class="hidden">
-          <div class="brand"><img class="brand-logo" src="logo-placeholder.svg" alt="Northgate Bank"></div>
+          <div class="brand"><img class="brand-logo" src="/logo-placeholder.svg" alt="Northgate Bank"></div>
           <h1>Verify it's you</h1>
           <p class="sub">Enter the 6-digit verification code to finish signing in.</p>
           <div class="login-error" id="otpError"></div>
@@ -130,7 +130,7 @@ export const legacyMarkupHtml = `
 
 <div id="appScreen">
   <div class="topbar">
-    <div class="brand"><img class="brand-logo" src="logo-placeholder.svg" alt="Northgate Bank"></div>
+    <div class="brand"><img class="brand-logo" src="/logo-placeholder.svg" alt="Northgate Bank"></div>
     <div class="topbar-right">
       <span class="alert-bell" title="Alerts">&#128276;</span>
       <div class="userchip"><div class="avatar" id="topAvatar">GB</div><span id="topUserName">Gbenga</span></div>
